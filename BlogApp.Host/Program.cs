@@ -43,7 +43,11 @@ public class Program
         builder.Services.AddSwaggerGen();
         var app = builder.Build();
         app.UseSwagger();
-        app.UseSwaggerUI();
+        app.UseSwaggerUI(c =>
+        {
+            c.SwaggerEndpoint("/swagger/v1/swagger.json", "BlogApp V1");
+            c.RoutePrefix = string.Empty;
+        });
         using (var scope = app.Services.CreateScope())
         {
             var dbContext = scope.ServiceProvider.GetRequiredService<BlogAppDbContext>();
